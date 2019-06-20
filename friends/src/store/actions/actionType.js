@@ -1,0 +1,6 @@
+export const FRIENDS_INIT = 'FRIENDS_INIT';
+export const ADD_FRIEND = 'ADD_FRIEND';
+export const FETCH_SUCCESS = 'FETCH_SUCCESS';
+export const FETCH_ERROR = 'FETCH_ERROR';
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+export const LOGIN_INFORMATION = 'LOGIN_INFORMATION';
