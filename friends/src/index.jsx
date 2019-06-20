@@ -11,7 +11,9 @@ import * as serviceWorker from './serviceWorker';
 import reducer from './store/reducers';
 import loginReducer from './store/reducers/login';
 import 'bootstrap/dist/css/bootstrap.min.css';
+// import { addTokenToLocalStorage } from './store/actions';
 
+// eslint-disable-next-line no-underscore-dangle
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(
   combineReducers({

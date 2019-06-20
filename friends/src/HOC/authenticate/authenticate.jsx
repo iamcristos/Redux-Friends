@@ -1,29 +1,23 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { Route, Redirect } from 'react-router-dom';
 
-const authenticate = Component => Login => class extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      login: false,
-    };
-  }
-
-  componentDidMount() {
-    const token = localStorage.getItem('token');
-    if (token) {
-      this.setState({ login: true });
-    }
-  }
-
-  render() {
-    const { login } = this.state;
-    return (
-      <div>
-        {login ? <Component {...this.props} />
-          : <Login {...this.props} />}
-      </div>
-    );
-  }
+const authenticate = ({ component:Component, login, ...rest }) => {
+  return (
+    <Route
+      {...rest}
+      render={props => (login ? (
+        <Component {...props} />
+      ) : (
+        <Redirect to="/login" />
+      ))
+      }
+    />
+  );
 };
 
-export default authenticate;
+const mapStateToProps = state => ({
+  login: state.login.login,
+});
+
+export default connect(mapStateToProps)(authenticate);

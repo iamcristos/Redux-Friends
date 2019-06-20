@@ -1,14 +1,17 @@
 import React from 'react';
 import './App.css';
-import authenticate from './HOC/authenticate/authenticate';
+import { Route, BrowserRouter } from 'react-router-dom';
+import Authenticate from './HOC/authenticate/authenticate';
 import Login from './components/Login/loginModal';
+import Friend from './components/Friend/friend';
 
 function App() {
-  const Auth = authenticate(<h1>Hi!!!</h1>)(Login);
   return (
     <div className="App">
-      <p>Hello world</p>
-      <Auth />
+      <BrowserRouter>
+        <Route exact path="/login" component={Login} />
+        <Authenticate exact path="/" component={Friend} />
+      </BrowserRouter>
     </div>
   );
 }

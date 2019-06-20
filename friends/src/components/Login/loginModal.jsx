@@ -19,11 +19,17 @@ class ModalLogin extends React.Component {
     this.loginPost = this.loginPost.bind(this);
   }
 
+  componentDidUpdate() {
+    const { login } = this.props;
+    if (login) {
+      this.props.history.push('/');
+    }
+  }
+
   loginPost(e) {
     e.preventDefault();
     const username = this.textInput.current.value;
     const password = this.textPassword.current.value;
-    console.log(username, password);
     this.props.loginRequest(username, password);
   }
 
@@ -35,13 +41,15 @@ class ModalLogin extends React.Component {
 
   render() {
     const { modal } = this.state;
+    const { error } = this.props;
     return (
       <div>
         <Button color="danger" onClick={this.toggle}>Proceed To Login</Button>
         <Modal isOpen={modal} toggle={this.toggle}>
-          <ModalHeader toggle={this.toggle}>Modal title</ModalHeader>
+          <ModalHeader toggle={this.toggle}>Kindly Login</ModalHeader>
           <ModalBody>
-            <Form inline onSubmit={e => this.loginPost(e)}>
+            {error ? <p>{error}</p> : null}
+            <Form onSubmit={e => this.loginPost(e)}>
               <FormGroup>
                 <Label for="exampleEmail" hidden>Email</Label>
                 <Input
@@ -51,7 +59,6 @@ class ModalLogin extends React.Component {
                   placeholder="Email"
                 />
               </FormGroup>
-              {' '}
               <FormGroup>
                 <Label for="examplePassword" hidden>Password</Label>
                 <Input
@@ -62,13 +69,11 @@ class ModalLogin extends React.Component {
                   innerRef={this.textPassword}
                 />
               </FormGroup>
-              {' '}
-              <Button onClick={e => this.loginPost(e)}>Submit</Button>
+              {/* <Button onClick={e => this.loginPost(e)}>Submit</Button> */}
             </Form>
           </ModalBody>
           <ModalFooter>
-            <Button color="primary" onClick={this.toggle}>Login???</Button>
-            {' '}
+            <Button color="primary" onClick={e => this.loginPost(e)}>Login</Button>
             <Button color="secondary" onClick={this.toggle}>Cancel</Button>
           </ModalFooter>
         </Modal>
@@ -78,7 +83,8 @@ class ModalLogin extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  login: state.login,
+  login: state.login.login,
+  error: state.login.error,
 });
 
 const mapDispatchToProps = {
